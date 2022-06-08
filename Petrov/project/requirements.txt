@@ -1,3 +1,6 @@
 fastapi
+uvicorn
+python-multipart
+aiofiles
 fpdf
 jinja2
