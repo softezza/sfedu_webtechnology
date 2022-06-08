@@ -1,0 +1,3 @@
+fastapi
+fpdf
+jinja2

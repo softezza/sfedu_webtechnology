@@ -3,6 +3,8 @@ from typing import List
 from fastapi import FastAPI, File, UploadFile, Request
 from fastapi.templating import Jinja2Templates
 
+from fpdf import FPDF
+
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
@@ -17,11 +19,13 @@ async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 
-@app.post("/files/")
-async def create_files(files: List[bytes] = File()):
-    return {"file_sizes": [len(file) for file in files]}
 
-
-@app.post("/uploadfiles/")
+@app.post("/word_to_pdf/")
 async def create_upload_files(files: List[UploadFile]):
+    file = files[0].file
+
+    # pdf = FPDF()
+    # pdf.add_page()
+    # pdf.set_font('Arial', size=14)
+    print(file)
     return {"filenames": [file.filename for file in files]}
