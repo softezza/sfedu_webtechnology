@@ -1,10 +1,14 @@
+import os
+import time
 from io import BytesIO
 from typing import List
 
 from fastapi import FastAPI, File, UploadFile, Request
+from fastapi.openapi.models import Response
 from fastapi.templating import Jinja2Templates
 
 from fpdf import FPDF
+from starlette.responses import FileResponse
 
 from helpers import upload_file_to_bytes
 
@@ -31,9 +35,12 @@ async def create_upload_files(files: List[UploadFile]):
         pdf.add_page()
         pdf.set_font('Arial', size=14)
 
-        pdf.cell(50, 5, txt=str(buffer.getvalue()), ln=1, align='C')
+        rows = buffer.getvalue().decode().split('\n')
+        for r in rows:
+            pdf.cell(200, 20, txt=r, ln=1, align='C')
 
-        pdf.output('test.pdf')
+        fn = f'media/{files[0].filename}__.pdf'
+        pdf.output(fn)
+        return FileResponse(fn, media_type='application/pdf', filename=files[0].filename + '__.pdf')
     except Exception as e:
-        print(e)
-    return {"filenames": [file.filename for file in files]}
+        return {"error": str(e)}
