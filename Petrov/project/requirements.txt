@@ -3,4 +3,5 @@ uvicorn
 python-multipart
 aiofiles
 fpdf
+PyPDF2
 jinja2
