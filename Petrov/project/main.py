@@ -3,7 +3,7 @@ import time
 from io import BytesIO
 from typing import List
 
-from fastapi import FastAPI, File, UploadFile, Request
+from fastapi import FastAPI, File, UploadFile, Request, Response
 from fastapi.templating import Jinja2Templates
 
 from fpdf import FPDF
@@ -65,21 +65,29 @@ async def create_upload_files(files: List[UploadFile]):
     except Exception as e:
         return {"error": str(e)}
 
+
 @app.post("/merge_pdf/")
 async def create_upload_files(files: List[UploadFile]):
     try:
-        tmp_img_name = f'media/tmp__{files[0].filename}'
-        with open(tmp_img_name, 'wb') as fp:
-            fp.write(await files[0].read())
+        pdfs = []
+        for file in files:
+            f_name = f'media/tmp__{file.filename}'
+            with open(f_name, 'wb') as fp:
+                fp.write(await file.read())
+            pdfs.append(f_name)
 
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.image(tmp_img_name, 10, 10)
+        merger = PdfMerger()
 
-        fn = f'media/{files[0].filename}__.pdf'
-        pdf.output(fn)
+        for pdf in pdfs:
+            merger.append(pdf)
 
-        os.remove(tmp_img_name)
-        return FileResponse(fn, media_type='application/pdf', filename=files[0].filename + '__.pdf')
+        stream = BytesIO()
+        merger.write(stream)
+        merger.close()
+
+        for fn in pdfs:
+            os.remove(fn)
+        # return FileResponse(fn, media_type='application/pdf', filename=files[0].filename + '__.pdf')
+        return Response(stream.getvalue(), media_type='application/pdf')
     except Exception as e:
         return {"error": str(e)}
