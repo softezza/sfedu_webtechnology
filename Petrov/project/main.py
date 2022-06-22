@@ -3,12 +3,12 @@ import time
 from io import BytesIO
 from typing import List
 
-from fastapi import FastAPI, File, UploadFile, Request, Response
+from fastapi import FastAPI, File, UploadFile, Request, Response, Form
 from fastapi.templating import Jinja2Templates
 
 from fpdf import FPDF
 from starlette.responses import FileResponse
-from PyPDF2 import PdfMerger
+from PyPDF2 import PdfMerger, PdfFileReader, PdfFileWriter
 
 from helpers import upload_file_to_bytes
 
@@ -91,3 +91,35 @@ async def create_upload_files(files: List[UploadFile]):
         return Response(stream.getvalue(), media_type='application/pdf')
     except Exception as e:
         return {"error": str(e)}
+
+
+@app.post("/split_pdf/")
+async def create_upload_files(files: List[UploadFile], pages: str = Form()):
+    f_name = f'media/split_pdf_tmp__{files[0].filename}'
+    with open(f_name, 'wb') as fp:
+        fp.write(await files[0].read())
+
+    b, e, *rest = pages.replace(' ', '').split('-')
+    b = int(b) - 1
+    e = int(e) - 1
+
+    pdf_to_split = PdfFileReader(f_name)
+    if b > pdf_to_split.getNumPages() or e > pdf_to_split.getNumPages() or b == e:
+        return {"error": 'введите корректный диапазон'}
+
+    if b > e:
+        tmp = b
+        b = e
+        e = tmp
+
+    pdf_writer = PdfFileWriter()
+    for page_num in range(b, e):
+        current_page = pdf_to_split.getPage(page_num)
+        pdf_writer.addPage(current_page)
+
+    f_name_resp = f'media/splited_pdf_{b}_{e}_{files[0].filename}'
+    with open(f_name_resp, "wb") as fp:
+        pdf_writer.write(fp)
+
+    return FileResponse(f_name_resp, media_type='application/pdf', filename=files[0].filename + 'splited__.pdf')
+
