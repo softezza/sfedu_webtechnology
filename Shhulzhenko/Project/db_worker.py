@@ -1,7 +1,7 @@
 import pymysql
 
 
-class Connect2Database():
+class Connect2Database:
     def __init__(self):
         print('Инициируем подключение к бд')
         self.connect_to_bd()
@@ -30,3 +30,8 @@ class Connect2Database():
             self._kzsp_conf.close()
         else:
             print('Подключение уже было закрыто')
+
+    def commit(self):
+        if not self._kzsp_conf.open:
+            return
+        self._kzsp_conf.commit()
