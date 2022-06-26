@@ -1,0 +1,371 @@
+{
+	"id": "0e530baf-c069-402b-936d-d9c486d218a8",
+	"name": "Test Collection",
+	"timestamp": "2022-06-26T19:19:55.641Z",
+	"collection_id": "21650167-ebc0e734-61d5-46fd-a9ba-3de209b73e81",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 13,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "eab06e90-d1b3-4f21-b465-317f00d1f331",
+			"name": "Home",
+			"url": "http://127.0.0.1:8000/",
+			"time": 30,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				30
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "03054a5c-5ee4-40c5-90d0-a9a01a910444",
+			"name": "List",
+			"url": "http://127.0.0.1:8000/lists/8/",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Your test id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Your test id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Your test id": true
+				}
+			]
+		},
+		{
+			"id": "7ff1d715-5a4e-4783-a5fb-85da01c2f159",
+			"name": "Task",
+			"url": "http://127.0.0.1:8000/tasks/4/",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Your test id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Your test id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Your test id": true
+				}
+			]
+		},
+		{
+			"id": "204e5ee5-80cf-4468-a734-3599222dc5b6",
+			"name": "Lists",
+			"url": "http://127.0.0.1:8000/lists",
+			"time": 26,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				26
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "d78b3139-7807-45c8-8208-1ed8157264f7",
+			"name": "Tasks",
+			"url": "http://127.0.0.1:8000/tasks",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "9e1946d1-05b0-4755-8372-58b7c1c38c8d",
+			"name": "List",
+			"url": "http://127.0.0.1:8000/lists",
+			"time": 39,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				39
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "aabd759f-0a43-4d56-a9a0-b8e9bebd4f69",
+			"name": "Task",
+			"url": "http://127.0.0.1:8000/tasks",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "3e27063a-8089-4ee9-8bc8-b36c211631dc",
+			"name": "List",
+			"url": "http://127.0.0.1:8000/lists",
+			"time": 20,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				20
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "bc827fcb-0f17-4cdd-a7f8-ba4e7ae3af42",
+			"name": "Task",
+			"url": "http://127.0.0.1:8000/tasks",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "69d01d6f-c3d2-4386-8f2e-5b910fef274d",
+			"name": "Task",
+			"url": "http://127.0.0.1:8000/tasks/13",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "8ae2af48-66e2-42b6-afd8-0590777c6484",
+			"name": "List",
+			"url": "http://127.0.0.1:8000/lists/20",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 209,
+	"collection": {
+		"requests": [
+			{
+				"id": "eab06e90-d1b3-4f21-b465-317f00d1f331",
+				"method": "GET"
+			},
+			{
+				"id": "03054a5c-5ee4-40c5-90d0-a9a01a910444",
+				"method": "GET"
+			},
+			{
+				"id": "7ff1d715-5a4e-4783-a5fb-85da01c2f159",
+				"method": "GET"
+			},
+			{
+				"id": "204e5ee5-80cf-4468-a734-3599222dc5b6",
+				"method": "GET"
+			},
+			{
+				"id": "d78b3139-7807-45c8-8208-1ed8157264f7",
+				"method": "GET"
+			},
+			{
+				"id": "9e1946d1-05b0-4755-8372-58b7c1c38c8d",
+				"method": "POST"
+			},
+			{
+				"id": "aabd759f-0a43-4d56-a9a0-b8e9bebd4f69",
+				"method": "POST"
+			},
+			{
+				"id": "3e27063a-8089-4ee9-8bc8-b36c211631dc",
+				"method": "PUT"
+			},
+			{
+				"id": "bc827fcb-0f17-4cdd-a7f8-ba4e7ae3af42",
+				"method": "PUT"
+			},
+			{
+				"id": "69d01d6f-c3d2-4386-8f2e-5b910fef274d",
+				"method": "DELETE"
+			},
+			{
+				"id": "8ae2af48-66e2-42b6-afd8-0590777c6484",
+				"method": "DELETE"
+			}
+		]
+	}
+}
