@@ -16,6 +16,11 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 
+@app.get("/")
+async def root(request: Request):
+    return templates.TemplateResponse("upload.html", {"request": request})
+
+
 @app.post("/txt_to_pdf/")
 async def create_upload_files(files: List[UploadFile]):
     try:
