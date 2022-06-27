@@ -6,67 +6,39 @@ import json
 import uvicorn
 from mysql.connector import connect, Error
 
-class Products(BaseModel):
-    id: int = None
-    id_list: int
-    name: str
-    weight: str
-    cost: int
-
-class EmployeeEncoder(JSONEncoder):
-    def default(self, o):
-        return o.__dict__
-
 app = FastAPI()
 
-def serialize(obj):
-    return json.dumps(obj, cls=EmployeeEncoder, ensure_ascii=False)
+@app.post('/cakes')
+def put_cakes():
+    query_str="SELECT * FROM Cakes;"
+    return transform_date_cakes(execute_select_query(query_str))
 
-     
-@app.get('/')
-def home():
-    return get_products()
+def transform_date_cakes(date):
+    return date    
 
-@app.get('/products')
-def get_products():
-    products = get_lists_from_db()
-    return serialize(products)
+@app.post('/contacts')
+def put_contacts():
+    query_str="SELECT * FROM Contacts;"
+    return transform_date_contacts(execute_select_query(query_str))
 
-@app.get('/products/{productsId}')
-def get_products(productsId: int): 
-    products = get_products_from_db(productsId)
-    return serialize(products[productsId])
+def transform_date_contacts(date):
+    return date
+  
+@app.post('/bakery')
+def put_bakery():
+    query_str="SELECT * FROM Bakery;"
+    return transform_date_bakery(execute_select_query(query_str))
 
-@app.post('/products')
-def create_products(newproducts: Products):
-    insert_query = f"INSERT INTO catalog.products(name, weight, cost) VALUES('{newproducts.name}', '{newproducts.weight}', {newproducts.cost});"
-    execute_query(insert_query)
+def transform_date_bakery(date):
+    return date    
 
-@app.put('/products')
-def put_product(newproduct: Products):
-    update_query = f"UPDATE catalog.products SET name = '{newproducts.name}', weight = '{newproducts.weight}', cost = {newproducts.cost} WHERE id = {newproducts.id};"
-    execute_query(update_query)
-    
-@app.delete('/products/{productsId}')
-def delete_products(productsId: int):
-    delete_query = f"DELETE FROM catalog.products WHERE id = {productsId};"
-    execute_query(delete_query)
+@app.post('/desserts')
+def put_desserts():
+    query_str="SELECT * FROM Desserts;"
+    return transform_date_desserts(execute_select_query(query_str))
 
-def get_products_from_db(id: int):
-    select_product_query = f"SELECT id, name, weight, cost FROM catalog.products WHERE id = {id};"
-    table = execute_select_query(select_products_query)
-    row = table[0]
-    Myproducts = Products(id = row[0], name = row[1], weight = row [2], cost = row[3])
-    return Myproducts
-    
-def get_products_from_db():
-    select_products_query = "SELECT id, name, weight, cost FROM catalog.products;"
-    table = execute_select_query(select_products_query)
-    products = list()
-    for row in table:
-        Myproducts = Products(id = row[0], name = row[1], weight = row [2], cost = row[3])
-        products.append(Myproducts)
-    return products
+def transform_date_desserts(date):
+    return date    
 
 def execute_select_query(query: str):
     #try:
@@ -78,17 +50,7 @@ def execute_select_query(query: str):
             with connection.cursor() as cursor:
                 cursor.execute(query)
                 return cursor.fetchall()
-                
-def execute_query(query: str):
-    #try:
-        with connect(
-        host="localhost",
-        user='root',
-        password='qwerty123',
-        ) as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(query)
-                connection.commit()
 
 if __name__ == '__main__':
+    print("Проверка")
     uvicorn.run('main:app', port=8000, host='0.0.0.0', reload=True)
