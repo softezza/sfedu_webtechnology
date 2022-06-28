@@ -4,12 +4,14 @@ from pydantic import BaseModel
 from json import JSONEncoder
 import json
 import uvicorn
-from mysql.connector import connect, Error
+#from mysql.connector import connect, Error
 
-class Product(BaseModel):
+class Photo(BaseModel):
     id: int = None
-    name: str
-    cost: int
+    brightness: int
+    contrast: int
+  
+
 
 class EmployeeEncoder(JSONEncoder):
     def default(self, o):
@@ -19,51 +21,57 @@ app = FastAPI()
 
 def serialize(obj):
     return json.dumps(obj, cls=EmployeeEncoder, ensure_ascii=False)
-
+    #return obj.__dict__
+     
 @app.get('/')
 def home():
-    return get_products()
+    return get_photo()
 
-@app.get('/products')
-def get_products():
-    products = get_products_from_db()
-    return serialize(products)
+@app.get('/photo')
+def get_photo():
+    photo = get_photo_from_db()
+    return serialize(photo)
 
-@app.get('/products/{productId}')
-def get_product(productId: int): 
-    products = get_product_from_db(productId)
-    return serialize(products[productId])
+@app.get('/photo/{photoId}')
+def get_photo(photoId: int): 
+    photo = get_photo_from_db(photoId)
+    return serialize(photo[photoId])
 
-@app.post('/products')
-def create_product(newproduct: Product):
-    insert_query = f"INSERT INTO catalog.products(name, cost) VALUES('{newproduct.name}', {newproduct.cost});"
+    
+@app.post('/photo')
+def create_photo(newphoto: Photo):
+    insert_query = f"INSERT INTO editor.photo(brightness, contrast) VALUES('{newphoto.brightness}',{newphoto.contrast});"
+    execute_query(insert_query)
+    
+
+@app.put('/photo')
+def put_photo(newphoto: Photo):
+    insert_query = f"UPDATE editor.photo SET brightness = '{newphoto.brightness}' WHERE id = {newList.id};"
+    execute_query(insert_query)
+    
+    
+@app.delete('/photo/{photoId}')
+def delete_photo(photoId: int):
+    delete_query = f"DELETE FROM editor.photo WHERE id = {photoId};"
     execute_query(insert_query)
 
-@app.put('/products')
-def put_product(newproduct: Product):
-    update_query = f"UPDATE catalog.products SET name = '{newproduct.name}', cost = {newproduct.cost} WHERE id = {newproduct.id};"
-    execute_query(update_query)
 
-@app.delete('/products/{productId}')
-def delete_product(productId: int):
-    delete_query = f"DELETE FROM catalog.products WHERE id = {productId};"
-    execute_query(delete_query)
-
-def get_product_from_db(id: int):
-    select_product_query = f"SELECT id, name, cost FROM catalog.products WHERE id = {id};"
-    table = execute_select_query(select_product_query)
+def get_photo_from_db(id: int):
+    select_photo_query = f"SELECT id, brightness, contrast FROM editor.photo WHERE id = {id};"
+    table = execute_select_query(select_photo_query)
     row = table[0]
-    Myproduct = Product(id = row[0], name = row[1], cost = row[2])
-    return Myproduct
-
-def get_products_from_db():
-    select_products_query = "SELECT id, name, cost FROM catalog.products;"
-    table = execute_select_query(select_products_query)
-    products = list()
+    MyPhoto = Photo(id = row[0], brightness = row[1], contrast = row[2])
+    return myPhoto
+    
+def get_photo_from_db():
+    select_photo_query = "SELECT id, brightness, contrast FROM editor.photo;"
+    table = execute_select_query(select_photo_query)
+    photo = list()
     for row in table:
-        Myproduct = Product(id = row[0], name = row[1], cost = row[2])
-        products.append(Myproduct)
-    return products
+        MyPhoto = Photo(id=row[0], brightness=row[1], contrast=row[2])
+        photo.append(MyPhoto)
+    return photo
+    
 
 def execute_select_query(query: str):
     #try:
@@ -75,7 +83,9 @@ def execute_select_query(query: str):
             with connection.cursor() as cursor:
                 cursor.execute(query)
                 return cursor.fetchall()
-
+    #except Error as e:
+    #    print(e)
+        
 def execute_query(query: str):
     #try:
         with connect(
@@ -86,6 +96,8 @@ def execute_query(query: str):
             with connection.cursor() as cursor:
                 cursor.execute(query)
                 connection.commit()
+    #except Error as e:
+    #    print(e)
 
 if __name__ == '__main__':
-    uvicorn.run('main:app', port=8000, host='0.0.0.0', reload=True) 
+    uvicorn.run('main:app', port=8000, host='0.0.0.0', reload=True)
